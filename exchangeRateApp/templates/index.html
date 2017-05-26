@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Exchange Rates For {{ currency }} - {{ currency_code }} </h2>
+<p>Last updated - {{ updated }}  UTC</p>
+
+<h4>Currency selector</h4>
+<form action="{{ url_for('index') }}" method="POST">
+        <label>Select: </label>
+        <select name="option" width="300px">
+            {% for x in pick_list %}
+            <option value="{{ x }}"{% if x == currency_code %} SELECTED{% endif %}>{{ x }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Submit</button>
+</form></table>
+
+
+<table>
+    <tbody>
+            {% for k,v in rate_list['rates'].items() %}
+        <form action="{{ url_for('index') }}" method="POST">
+        <tr>
+            <td>{{ k }}</td>
+            <td>{{ v }}</td>
+            <!-- <td>      <button type="Hide" name="hide" value="{{ k }}">Hide</button></td> -->
+        </tr>
+        </form>
+            {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
